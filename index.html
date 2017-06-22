@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/guolehui/css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="/guolehui/css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="/guolehui/icon-font/iconfont.css"/>
+		<script type="text/javascript" src="/guolehui/js/template-native.js"></script>
+		<script type="text/javascript" src="/guolehui/js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript" src="/guolehui/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="/guolehui/js/require.js"></script>
+		
+	</head>
+	<body>
+		<header></header>
+	<main>
+		<!--banner图-->
+		<div id="banner">
+		  	<ul>
+		  		<li><a href="#"><img src="/guolehui/img/banner0.jpg"/></a></li>
+		  		<li><a href="#"><img src="/guolehui/img/banner1.jpg"/></a></li>
+		  		<li><a href="#"><img src="/guolehui/img/banner2.jpg"/></a></li>
+		  		<li><a href="#"><img src="/guolehui/img/banner3.jpg"/></a></li>
+		  		<li><a href="#"><img src="/guolehui/img/banner4.jpg"/></a></li>
+		  	</ul>
+		  <div class="page"></div>
+		  <div class="next"><i class="iconfont icon-jiantou"></i></div>
+		  <div class="prev"><i class="iconfont icon-chevron-copy-copy-copy"></i></div>
+		</div>
+		<!--banner图上下轮播-->
+		<script type="text/javascript">
+			$(function(){
+				var $imgs = $("#banner li"),
+				len = $imgs.length,
+				imgheight = $imgs.outerHeight(),
+				currentIndex = 1,
+				nextIndex = 2,
+				html = "",
+				timer = null,
+				isMoving = false; // 标记是否正在轮播切换
+
+			// 将第一张图片与最后一张图片克隆
+			var first = $imgs.eq(0).clone(true),
+				last = $imgs.eq(len - 1).clone(true);
+			// 添加到开头或结尾
+			$("#banner ul").append(first).prepend(last);
+			// len修改
+			len += 2;
+			// 设置 ul 宽度, 默认显示第一张图片内容
+			$("#banner ul").css({
+				height : len * imgheight,
+				top : -imgheight
+			});
+
+			// 小圆点
+			for (var i = 0; i < len - 2; i++) {
+				html += "<div class='span'>"+(i+1)+"</div>";
+			}
+			$(html).appendTo("#banner .page").eq(0).addClass("bg");
+			// 点击小圆点切换显示图片
+			$("#banner .span").click(function(){
+				nextIndex = $(this).index() + 1;
+				move();
+			});
+            
+			// 向上
+			$(".prev").click(function(){
+				if (!isMoving){
+					nextIndex = currentIndex - 1;
+					move();
+				}
+			});
+			// 向下
+			$(".next").click(function(){
+				if (!isMoving) {
+					move();
+				}
+			});
+
+			$("#banner").hover(function(){
+				clearInterval(timer)
+			}, function(){
+				// 自动轮播
+				timer = setInterval(move, 3000);
+			}).trigger("mouseleave");
+
+			function move() {
+				// 标记开始实现轮播
+				isMoving = true;
+
+				var _top = -1 * imgheight * nextIndex;
+				// 定位
+				$("#banner ul").stop().animate({top: _top}, 1000, function(){
+					// 标记轮播结束
+					isMoving = false;
+					if (nextIndex >= len) { // 向后
+						$("#banner ul").css({
+							top : -imgheight
+						});
+						currentIndex = 1;
+						nextIndex = 2;
+					} else if (currentIndex <= 0) { // 向前
+						$("#banner ul").css({
+							top : -1 * imgheight * (len - 2)
+						});
+						currentIndex = len - 2;
+						nextIndex = len - 1;
+					}
+				});
+				var cirleIndex = (nextIndex == len - 1) ? 0 : (nextIndex - 1);
+				$("#banner .span").eq(cirleIndex).addClass("bg").siblings().removeClass("bg");
+
+				currentIndex = nextIndex;
+				nextIndex++;
+			}
+			});
+		</script>
+		<!--热门水果-->
+		<div id="hotbox">
+			<div id="hotmessage">
+				<p>热门水果</p>
+				<a href="#">查看全部商品></a>
+			</div>
+			<div id="hot">
+				<script type="text/html" id="hot-template">
+					<%for(var i=0;i<hots.length;i++){
+						var prod = hots[i];
+						%>
+				 <div class="hotfruit"><a href="#"><img src="/guolehui/img/<%=prod.hotimg %>"></a></div>
+					<%}%>
+				</script>
+				<script type="text/javascript">
+					$.getJSON("/guolehui/data/hot.json",function(data){
+						var datas = {
+							hots:data
+						}
+						var html = template("hot-template",datas);
+						  $("#hot").append(html)
+					}).then(function(){
+						/*var boxWidth = $("#hot div").innerWidth,
+						    boxHeight = $("#hot div").innerHeight;*/
+						    
+					})
+				</script>
+				
+			</div>
+		</div>
+		
+		<div id="fruit-navbox">
+			<div class="clean"></div>
+	      <!--更多鲜果模板-->
+			<script type="text/html" id="fruit-template">
+			<%for(var i =0; i<fruits.length;i++){
+				var prod = fruits[i];
+				%>
+			<div class="fruit-nav">
+				   <div class="fruit-l">
+					<div class="fruit-title"><a href="#">更多<%= prod.fruittitle %></a> 
+					</div>
+					<div class="fruit-recom">
+						<a href="#">
+							<img src="/guolehui/img/<%= prod.recomsrc %>"/>
+						</a>
+					</div>
+				</div>
+				<div class="fruit-r">
+					<ul>
+						<div class="bannerbox">
+							<%for(var k=0;k<prod.bannersrc.length;k++){
+								var ban = prod.bannersrc[k]
+							%>
+							<img src="/guolehui/img/<%= ban %>"/>
+							<%}%>
+							<div class="page"></div>
+							<div class="next">></div>
+							<div class="prev"><</div>
+						</div>
+						<%for(var j=0;j<prod.product.length;j++){
+							var pro = prod.product[j]
+						%>
+						<li>
+							<div class="fruit-info">
+								<a href="#"><%= pro.infomessage %></a>
+								<span class="price"><p>￥</p><p><%= pro.infoprice %></p></span>
+							</div>
+							<div class="img">
+								<a href="#">
+								<img src="/guolehui/img/<%= pro.imgsrc %>"/>
+							</a>
+							</div>
+						</li>
+						<%}%>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="clean"></div>
+			<% } %>
+			</script>
+			
+		</div>
+		
+	</main>
+	   <footer></footer>
+	   
+	  <script type="text/javascript">
+	  	$(function(){
+	  		 //加载footer信息
+	  		$("footer").load("/guolehui/html/footer.html")
+	  		//$("header").load("/guolehui/html/header.html")
+	  		//加载头部信息并判断
+	  		$.ajax("/guolehui/html/header.html").then(function(data){
+	  			data = $(data).find("#nav-list").css({display:"block"}).end();
+	  			    $("header").append(data);
+	  		});
+	  		//模板
+	  		$.getJSON("/guolehui/data/fruit.json", function(responseData){
+	  			var data = {
+					fruits : responseData
+				};
+				//console.log(data)
+				/*var  arr =[];
+				var  title = $(data.fruits).each(function(index,element){
+					   if(arr.indexOf(element.fruittitle,0) == -1 ){
+					   	console.log(1111)
+					   	     arr.push(element);
+					      }
+					     
+				})*/
+				var html = template("fruit-template",data);
+				$("#fruit-navbox").append(html);
+			}).then(function(){
+			   $("#fruit-navbox .fruit-r").each(function(index,element){
+	  			  //小图的hover事件
+	  			  $(element).find("li").hover(function(){
+	  			  	 $(this).find(".img").find("a").stop().animate({right:"20px"})
+	  			  },function(){
+	  			  	$(this).find(".img").find("a").stop().animate({right:"0px"})
+	  			  });
+	  			  
+	  			  //#fruit-navbox内的banner图；
+	  			  var $img = $(element).find(".bannerbox").find("img"),
+	  			        currentindex=0,
+	  			        nextindex=1,
+	  			        timer =null,
+	  			        html = "";
+	  			        
+	  			      for(var i=0;i<$img.length;i++){
+	  			        	html += "<div class='span'></div>"
+	  			        }
+	  			      //动态创建圆点
+	  			      $(element).find(".page").html(html).find(".span").eq(0).addClass("bg");
+	  			      
+	  			if($img.length>=2){
+	  			  // timer = setInterval(move,3000)
+	  			     //移入移出
+	  			     $(element).find(".bannerbox").hover(function(){
+	  			     	   clearInterval(timer)
+	  			     },function(){
+	  			     	 timer = setInterval(move,2000)
+	  			     }).trigger("mouseleave");
+	  			     //上下切换
+	  			     $(element).find(".next").click(move);
+	  			     $(element).find(".prev").click(function(){
+	  			     	nextindex = currentindex-1;
+	  			     if(nextindex <0)
+	  			       nextindex = $img.length-1;
+	  			     	  move();
+	  			     })
+	  			     //移入小圆点
+	  			     $(element).find(".page").on("mouseover","div",function(){
+	  			     	
+	  			     	 if(currentindex == $(this).index())
+	  			     	   return;
+	  			     	   nextindex = $(this).index();
+	  			     	      move();
+	  			     	      console.log($(this).index())
+	  			     });
+	  			     
+	  			function move(){
+	  			  $img.eq(currentindex).stop().fadeOut(1000).end()
+	  			      .eq(nextindex).stop().fadeIn(1000);
+	  			      //绑定小圆点背景图；
+	  			     $(element).find(".span").eq(nextindex).addClass("bg")
+	  			                             .siblings().removeClass("bg");
+	  			    currentindex = nextindex;
+	  			      nextindex++;
+	  			    if(nextindex >= $img.length)
+	  			     nextindex=0;
+	  			      	}
+	  			 
+	  			      }
+	  			   
+	  			});
+			});
+			 
+	  	  
+	  	});
+	  	
+	  	 
+	  	</script>
+	</body>
+	
+</html>
+   <!-- <script type="text/javascript">
+     	//小图浮动效果
+     	/*$(".img a").hover(function(){
+     		$(this).stop().animate({right:50px},1000)
+     	},function(){
+     		$(this).stop().animate({right:10px},1000)
+     	});*/
+     	//淡入淡出轮播
+		$(function(){
+			var $imgs = $(".bannerbox").eq(0).children("img"),
+				len = $imgs.length,
+				currentIndex = 0,
+				nextIndex = 1,
+				timer = null,
+				html = "";
+				console.log($imgs)
+			// 鼠标移入移出div#container时的效果
+			$(".bannerbox").hover(function(){
+				// mouseenter
+				clearInterval(timer);
+			},function(){
+				// mouseleave
+				timer = setInterval(move, 3000);
+			}).trigger("mouseleave");
+
+			// 创建小圆点DOM结构的字符串
+			for (var i = 0; i < len; i++) {
+				html += "<div class='span'></div>";
+			}
+			// 添加小圆点，第一个小圆点默认红色背景
+			$(html).appendTo(".bannerbox:eq(0) .page").eq(0).addClass("bg");
+			// 绑定鼠标移入小圆点的事件
+			$(".page").on("mouseover","div", function(){
+				if (currentIndex == $(this).index())
+					return;
+				nextIndex = $(this).index();
+				move();
+			});
+			// 向上
+			$(".prev").click(function(){
+				nextIndex = currentIndex - 1;
+				if (nextIndex < 0)
+					nextIndex = len - 1;
+				move();
+			});
+			// 向下
+			$(".next").click(move);
+
+			function move(){
+				$imgs.eq(currentIndex).fadeOut().end()
+					 .eq(nextIndex).fadeIn();
+				// 小圆点背景
+				$(".bannerbox:eq(0) .span").eq(currentIndex).removeClass("bg").end().eq(nextIndex).addClass("bg");
+
+				currentIndex = nextIndex;
+				nextIndex++;
+				if (nextIndex >= len)
+					nextIndex = 0;
+			}
+		});
+	</script>-->

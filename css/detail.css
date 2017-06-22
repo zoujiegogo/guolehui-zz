@@ -1,0 +1,309 @@
+#productdetailbox {
+  width: 1200px;
+  margin: 0px auto;
+  height: 4575px; }
+
+#productdetail {
+  width: 1200px;
+  margin: 0 auto; }
+
+#aside {
+  width: 200px;
+  float: left; }
+
+#aside dl {
+  width: 198px;
+  border: 1px solid #dddddd;
+  margin-bottom: 20px; }
+
+#aside dt {
+  width: 198px;
+  height: 32px;
+  text-indent: 10px;
+  line-height: 32px; }
+
+#lefttop dt {
+  background: #339933; }
+
+#lefttop dt a {
+  color: #FFFFFF;
+  font-size: 15px; }
+
+#lefttop dd a {
+  line-height: 30px;
+  padding: 0px 10px;
+  color: #222222;
+  font-size: 14px; }
+
+#lefttop dd a:hover {
+  color: red; }
+
+#leftbottom {
+  padding-bottom: 15px; }
+
+#leftbottom dt {
+  background: #f7f7f7;
+  border-bottom: 1px solid #DDDDDD; }
+
+#leftbottom dt a {
+  color: black;
+  font-size: 14px; }
+
+#leftbottom dd {
+  border-bottom: 1px dashed #CCCCCC;
+  width: 198px; }
+
+#leftbottom dd .imgbox {
+  width: 160px;
+  height: 160px; }
+
+#leftbottom dd .imgbox img {
+  width: 160px;
+  height: 160px;
+  margin: 10px 0 0 19px; }
+
+#leftbottom dd .info {
+  width: 180px;
+  margin: 0 auto;
+  height: 64px; }
+
+#leftbottom dd .info a {
+  color: #333333;
+  font-size: 12px;
+  display: block;
+  height: 40px;
+  text-align: center;
+  margin-top: 15px; }
+
+#leftbottom dd .info a:hover {
+  color: red; }
+
+#leftbottom dd .info p {
+  color: red;
+  text-align: center;
+  font-size: 13px; }
+
+#detail {
+  width: 975px;
+  float: right; }
+
+#detail h3 {
+  padding-top: 5px;
+  margin-bottom: 10px; }
+
+#detailinfo {
+  width: 975px;
+  height: 420px; }
+
+#mirimgbox {
+  width: 335px;
+  height: 420px;
+  float: left; }
+
+#bigimg {
+  width: 333px;
+  height: 330px;
+  position: relative;
+  border: 1px solid #DDDDDD;
+  overflow: hidden; }
+  #bigimg:hover {
+    overflow: visible; }
+    #bigimg:hover #mirror {
+      display: block; }
+
+#mirrorbox, #bigbox {
+  width: 333px;
+  height: 330px;
+  position: relative; }
+
+#mirrorbox {
+  position: absolute;
+  top: 0;
+  left: 350px;
+  z-index: 1;
+  overflow: hidden; }
+  #mirrorbox img {
+    position: absolute;
+    width: 480px;
+    height: 480px; }
+
+#bigbox img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: none; }
+  #bigbox img:nth-child(1) {
+    display: block; }
+
+#mirror {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: none;
+  background: transparent;
+  position: absolute;
+  border: 1px solid #000000;
+  top: 0;
+  left: 20px; }
+
+#img-nav {
+  width: 335px;
+  height: 63px;
+  position: relative; }
+
+#left-button, #right-button {
+  top: 0;
+  width: 16px;
+  height: 63px;
+  border: 5px;
+  background: #f6f6f6;
+  color: #CCCCCC;
+  text-align: center;
+  line-height: 63px;
+  position: absolute; }
+
+#left-button {
+  left: 0; }
+
+#right-button {
+  right: 0; }
+
+#imgnavbox {
+  margin: 0 auto;
+  width: 300px;
+  height: 63px;
+  margin-top: 5px; }
+
+#imgnavbox .imgbox {
+  width: 63px;
+  margin-right: 7px;
+  height: 63px;
+  box-sizing: border-box;
+  border: 1px solid #DDDDDD;
+  float: left; }
+
+#imgnavbox .imgbox img {
+  width: 100%;
+  height: 100%; }
+
+#info {
+  width: 580px;
+  height: 420px;
+  float: right; }
+  #info #detail-price {
+    border-bottom: 1px dashed #DCDCDC;
+    padding-top: 10px 0; }
+  #info span {
+    font-size: 12px;
+    color: #333333; }
+    #info span ins {
+      font-size: 15px;
+      color: red;
+      margin-bottom: 10px; }
+  #info #marketprice {
+    display: block;
+    margin-bottom: 10px; }
+    #info #marketprice del {
+      color: #CCCCCC; }
+  #info #detail-action {
+    position: relative; }
+    #info #detail-action div {
+      height: 30px;
+      font-size: 12px;
+      color: #222222; }
+    #info #detail-action #address {
+      border: 1px solid #CCCCCC;
+      height: 30px;
+      line-height: 30px;
+      color: #222222; }
+    #info #detail-action #time p {
+      display: block;
+      float: left; }
+      #info #detail-action #time p:nth-child(1) {
+        margin-right: 50px; }
+    #info #detail-action #location {
+      color: red;
+      font-size: 15px; }
+    #info #detail-action #countbox div {
+      float: left;
+      text-align: center;
+      line-height: 30px; }
+    #info #detail-action #countbox #jian, #info #detail-action #countbox #jia {
+      width: 28px;
+      border: 1px solid #CCCCCC; }
+    #info #detail-action #countbox input {
+      height: 30px;
+      width: 50px;
+      border-left: 0;
+      border-right: 0;
+      text-align: center;
+      border: 1px solid #CCCCCC; }
+    #info #detail-action #btn {
+      width: 175px;
+      height: 43px;
+      text-align: center;
+      line-height: 43px;
+      font-size: 17px;
+      color: #FFFFFF;
+      border: 0;
+      background: #69b201;
+      border-radius: 10px;
+      position: absolute;
+      top: 160px;
+      left: 0px; }
+
+#introduct {
+  width: 975px; }
+  #introduct #xiding {
+    width: 975px;
+    height: 40px;
+    border-bottom: 1px solid #99cc00;
+    color: #FFFFFF; }
+    #introduct #xiding #xdleft {
+      width: 95px;
+      height: 36px;
+      background: #99CC00;
+      font-size: 14px;
+      text-align: center;
+      line-height: 36px;
+      float: left; }
+    #introduct #xiding #xdright {
+      display: none;
+      height: 40px;
+      font-size: 18px;
+      margin-right: 52px;
+      line-height: 40px;
+      text-align: center;
+      float: right; }
+      #introduct #xiding #xdright div {
+        float: left;
+        width: 110px;
+        height: 40px; }
+      #introduct #xiding #xdright a {
+        color: #FFFFFF;
+        font-size: 18px; }
+      #introduct #xiding #xdright #jiage {
+        background: rgba(0, 0, 0, 0.7); }
+      #introduct #xiding #xdright #go {
+        background: #FBD209; }
+      #introduct #xiding #xdright #tianjia {
+        background: #eb6100; }
+  #introduct #fenlei {
+    margin: 15px 0;
+    font-size: 14px;
+    color: #222222;
+    box-sizing: border-box;
+    width: 975px;
+    height: 40px;
+    border: 1px solid #333333;
+    background: #f5f5f5; }
+    #introduct #fenlei div {
+      float: left;
+      width: 315px;
+      line-height: 40px;
+      height: 40px;
+      text-indent: 24px; }
+  #introduct #imgdescrible {
+    width: 975px;
+    margin-bottom: 20px; }

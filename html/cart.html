@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/guolehui/css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="/guolehui/css/cart.css"/>
+		<link rel="stylesheet" type="text/css" href="/guolehui/icon-font/iconfont.css"/>
+		<script type="text/javascript" src="/guolehui/js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript" src="/guolehui/js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="/guolehui/js/template-native.js"></script>
+		<script type="text/javascript" src="/guolehui/js/require.js"></script>
+	</head>
+	<body>
+		<div class="clean"></div>
+		<div id="cartbox">
+			<div id="cart-tiltle">
+				<span class="iconfont icon-iconfontgouwuche">购物车</span>
+			</div>
+			<div id="cart-contanier">
+				<div id="have">
+					 &nbsp;&nbsp;&nbsp;&nbsp;已选择的商品
+				<table cellspacing="0" border="0">
+				  <thead>
+				  	<tr>
+				  		<th>
+				  			<div class="check">
+				  				<label for="">全选：</label><input type="checkbox"/>
+				  			</div>
+				  		    <div>商品</div>
+				  		</th>
+				  		<th>销售价</th>
+				  		<th>数量</th>
+				  		<th>优惠金额</th>
+				  		<th>积分</th>
+				  		<th>小计</th>
+				  		<th>操作</th>
+				  	</tr>
+				  </thead>
+				  <tbody >
+				  <!--	<tr>
+				  		<td>
+				  			<input type="checkbox" class="check"/>
+				  			<div class="cart-img">
+				  				<img src="../img/fruit-r0.jpg"/>
+				  			</div>
+				  			<div class="cart-info">
+				  				<a href="" class="info">近平的福克斯kd</a>
+				  				<p class="adress">中国海南 原装10斤</p>
+				  			</div>
+				  		</td>
+				  		<td><div class="cart-price">￥188.00</div></td>
+				  		<td>
+				  			<label for="">-</label>
+				  			<input type="text"/>
+				  			<label for="">+</label>
+				  		</td>
+				  		<td>
+				  			<span class="zhekou">￥0.00</span>
+				  		</td>
+				  		<td>
+				  			<span class="score">188</span>
+				  		</td>
+				  		<td>
+				  			<span class="unit-price">￥188.00</span>
+				  		</td>
+				  		<td>
+				  			<a href="#">移除</a>
+				  		</td>
+				  	</tr>-->
+				  	  <script type="text/html" id="cart-template">
+				  	  	<%for(var i=0;i<products.length;i++){
+				  	  		var prod = products[i];
+				  	  	%>
+				  	  	<tr>
+				  		  <td>
+				  			<input type="checkbox" class="check"/>
+				  			<div class="cart-img">
+				  				<img src="<%=prod.imgsrc%>"/>
+				  			</div>
+				  			<div class="cart-info">
+				  				<a href="/guolehui/html/detail" class="info" name="<%=prod.typeid%>" id="<%=prod.id%>"><%=prod.name%></a>
+				  				<p class="adress">中国海南 原装10斤</p>
+				  			</div>
+				  		</td>
+				  		<td> <div class="cart-price">￥<label><%=prod.saleprice%></lable></div></td>
+				  		<td>
+				  			<label for="" class='minus'>-</label>
+				  			<input type="text" class='count' value="<%=prod.count%>"/>
+				  			<label for="" class='add'>+</label>
+				  		</td>
+				  		<td>
+				  			<span class="zhekou">￥<label>0.00</lable></span>
+				  		</td>
+				  		<td>
+				  			<span class="score"><label><%=prod.saleprice%></label></span>
+				  		</td>
+				  		<td>
+				  			<span class="unit-price">￥<label><%=prod.saleprice*prod.count%></lable></span>
+				  		</td>
+				  		<td>
+				  			<a href="#" class='remove'>移除</a>
+				  		</td>
+				  	</tr>
+				  	  	<%}%>
+				  	  </script>
+				  		
+				  </tbody>	
+				</table>
+			    <div id="paymessagebox">
+			    	<div id="paymessage">
+			    	<span>
+			    		商品总金额：<label for="" class="red">￥</label><label class="red" id="total">0.00</label>
+			    	</span>
+			    	<span>
+			    		订单优惠金额：<label for="" class="red">￥</label><label id="savemoney" class="red">0.00</label>
+			    	</span>
+			    	<span>
+			    	<label for="" id="scroce">（订单积分为<label for="">0</label>）</label>总金额：<label for="" class="red">￥</label><label class="red" id="paymoney">000</label>
+			    	</span>
+			    	</div>
+			    	
+			    </div>
+			   <div id="cart-action">
+			    	<div class="cart-left">
+			    		<button id="empty">清空购物车</button>
+			    		<button id="together">凑单商品</button>
+			    	</div>
+			    	<div class="cart-right">
+			    		<a href="#" class="go">继续购物</a>
+			    		<button id="pay">下单结算</button>
+			    	</div>
+			    </div>
+				</div>
+				<script type="text/javascript">
+					$(function(){
+						$.cookie.json = true;
+					var _fruits = $.cookie("fruits")||[];
+					   if(_fruits.length==0||_fruits.length==undefined){
+					   	  $("#have").hide();
+					   	  $("#none").show();
+					   };
+					   
+					  /* $.ajax("/guolehui/data/product.json").then(function(data){
+					   	var fruits=[]
+					   	 $(data).each(function(index,fruit){
+					   	   	   var data_id = fruit.id;
+					   	   	  _fruits.each(function(num,element){
+					   	   	  	var  fruit = element.id;
+					   	   	  	 if (fruit==data_id){
+					   	   	  	 	
+					   	   	  	 }
+					   	   	  });
+					   	   })
+					   });*/
+					   
+					   
+					   var data = {
+					   	products:_fruits
+					   }
+					   var html = template("cart-template",data);
+					    $(html).appendTo("tbody").filter("tr").each(function(index,element){
+					    	 $(element).data("product",_fruits[index])
+					    });
+					    
+					    /*$("tbody").on("click","input:checked",function(){
+					      console.log($(this).parents("td").children(".unit-price"))
+					    })*/
+                  /* 全选 */
+			$("th").on("click","input:checkbox",function(){
+				// 获取当前全选框选中状态
+				var status = $(this).prop("checked");
+				// 设置所有商品复选框状态与全选一致
+				$("tr input:checkbox").prop("checked", status);
+				// 计算合计
+				calcTotal();
+			});
+			/* 单选 */
+			$("td").on("click","input:checkbox",function(){
+				// 计算合计
+				calcTotal();
+				// 当所有商品行前的复选框选中时，将全选设置为选中状态，否则取消全选选中
+				if ($("td :checkbox:checked").length === _fruits.length) {
+					$("th :checkbox").prop("checked", true);
+				} else{
+					$("th :checkbox").prop("checked", false);
+				}
+			});
+
+			/***********************************************/
+			/* 修改商品数量：加、减 */
+			$("tbody").on("click",".add,.minus", function(){
+				// 获取点击符号所在行
+				var $row = $(this).parents("tr");
+				// 获取行上缓存的商品对象
+				var _product = $row.data("product");
+				 // 修改界面显示数量
+				if ($(this).is(".add")){ // 当前点击的是 + 
+					++_product.count;
+				} else{ // 点击的是 -
+					if (_product.count <= 1)
+						return;
+					--_product.count;
+				}
+				$row.find(".count").val(_product.count);
+				// 修改显示小计
+				$row.find(".unit-price").children("label").text(_product.saleprice * _product.count);
+				// 显示合计
+				calcTotal();
+				// 修改cookie
+				$.cookie("fruits", _fruits, {expires:7});
+			});
+
+			/* 输入实现修改 */
+			$("tbody").on("blur", ".count", function(){
+				var _product = $(this).parents("tr").data("product");
+				var reg = /^[1-9]\d*$/;
+				if (!reg.test($(this).val())) {
+					$(this).val(_product.count);
+					return;
+				}
+				
+				_product.count = $(this).val();
+				$(this).parents("tbody").find(".unit-price").children("label").text(_product.saleprice * _product.count);
+				calcTotal();
+			    $.cookie("fruits", _fruits, {expires:7});
+			});
+
+			// 删除 
+			$("tbody").on("click", ".remove", function(e){
+				e.preventDefault();
+				var $row = $(this).parents("tr");
+				var _product = $row.data("product");
+				var index = $.inArray(_product, _fruits);
+				_fruits.splice(index, 1);
+				 $row.remove();
+				$.cookie("fruits", _fruits, {expires:7});
+			});
+			  // 合计 
+			function calcTotal() {
+				var _total = 0;
+				$("tbody input:checked").each(function(index, element){
+					_total += Number($(element).parents("tr").find(".unit-price").find("label").text());
+				});
+				$("#total").text(_total.toFixed(2));
+			    }
+			  $("#empty").click(function(){
+			  	var _fruits = $.cookie("fruits")
+			  	console.log($.cookie("fruits").length)
+			  	if(confirm("是否清空购物车")){
+			  		$.cookie("fruits",_fruits,{expires:-1});
+			  	}
+			  })
+			})
+					  
+				</script>		
+				 <div id="none">
+				 	<span>
+				 		<i class="iconfont icon-gouwu"></i><br />
+				 		<p>您的购物车里还没有商品，您可以：</p>
+				 		<p>将<label for=""><a href="">收藏夹</a></label>中的商品添加进来，或者去看看
+				 		   <label for=""><a href="/guolehui/html/list.html">商城》</a></label>
+				 		</p>
+				 	</span>
+				 </div>
+			</div>
+			
+		</div>
+	</body>
+</html>

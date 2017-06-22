@@ -1,0 +1,85 @@
+[
+	{ 
+	  "id":1,     //不同水果各有个id 从1开始
+	  "typeid":1,  //不同属性水果各有个typeid 从1开始
+	  "countid":1, //计数 1为有该商品，0为没有该商品，2正在进货中；
+	  "message":"【特价】美国樱桃新品上市28mm", //水果信息
+	  "name":"樱桃",
+	  "adress":"美国", 
+	  "desc":"团购优惠咨询电话：400-699-1807",   //可有可无           
+	  "fristclass":"进口果鲜",  //一级标题
+	  "fclassid":1,           //一级标题id 
+	  "secondclass":"美国水果", //二级标题
+	  "sclassid":1,           //二级标题id 
+	  "imgsrc":"/img.jpg",     //水果图片
+	  "bannersrc":"/banner.jpg",   //首页中bannerbox的轮播图片
+	  "saleprice":138.00,       //销售价格
+	  "marketprice":199.00,     //市场价格
+	  "showimg":[                  //购物车中展示图片
+	           {"show0":"/img0.jpg"},
+	           {"show0":"/img1.jpg"},
+	           {"show0":"/img2.jpg"}
+	             ],
+	    "productimg":[                //商品详情中的展示图片
+	              {"product":"/productimg0.jpg"},
+	              {"product":"/productimg1.jpg"},
+	              {"product":"/productimg2.jpg"},
+	              {"product":"/productimg3.jpg"}
+	              ],
+	    "fruitrecomsrc":"fruit-l.jpg"   //放在banner图左边的图片       
+	}
+]
+
+
+
+
+
+
+
+/*[
+  {
+    "fruittitle" : "进口水果",
+     "id":1,
+     "recomsrc":"fruit-l0.jpg",
+     "bannersrc" : "fruit-r-b.jpg", 
+     "infomessage":"新西兰新西兰",
+     "imgasrc":"fruit-r0.jpg",
+     "infoprice":29.00
+     }, 
+     {
+    "fruittitle" : "进口水果",
+     "id":1,
+     "recomsrc":"fruit-l0.jpg",
+     "bannersrc" : "fruit-r-b.jpg", 
+     "infomessage":"新西兰新西兰",
+     "imgasrc":"fruit-r0.jpg",
+     "infoprice":29.00
+     },
+      {
+    "fruittitle" : "国产水果",
+     "id":2,
+     "recomsrc":"fruit-l1.jpg",
+     "bannersrc" : "fruit-r-b.jpg", 
+     "infomessage":"新西兰新西兰",
+     "imgasrc":"fruit-r0.jpg",
+     "infoprice":29.00
+     },
+      {
+    "fruittitle" : "国产水果",
+    "id":2,
+    "recomsrc":"fruit-l1.jpg",
+     "bannersrc" : "fruit-r-b.jpg", 
+     "infomessage":"新西兰新西兰",
+     "imgasrc":"fruit-r0.jpg",
+     "infoprice":29.00
+     },
+      {
+    "fruittitle" : "进口水果",
+    "id":1,
+    "recomsrc":"fruit-l0.jpg",
+    "bannersrc" : "fruit-r-b.jpg", 
+     "infomessage":"新西兰新西兰",
+     "imgasrc":"fruit-r0.jpg",
+     "infoprice":29.00
+     }
+     ]*/

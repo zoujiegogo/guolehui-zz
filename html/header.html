@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/guolehui/css/header.css"/>
+		<link rel="stylesheet" type="text/css" href="/guolehui/icon-font/iconfont.css"/>
+		<!--<script src="../js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript" src="../js/template-native.js"></script>
+		<script src="../js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="../js/jquery.cookie.js"></script>-->
+		
+	</head>
+	<body>
+		<div id="cover"></div>
+		<div id="adress">
+			<div id="ad-title">
+				<span>请选择城市</span>
+				<span id="tui"><i class="iconfont icon-tuichu"></i></span>
+			</div>
+			<div id="ad-box">
+				<div id="hot-ad">
+					<span>热门城市：</span>
+					<div class="city">
+						<a href="#">北京</a>
+						<a href="#">天津</a>
+						<a href="#">上海</a>
+						<a href="#">重庆</a>
+						<a href="#">广州</a>
+						<a href="#">深圳</a>
+						<a href="#">杭州</a>
+						<a href="#">南京</a>
+						<a href="#">成都</a>
+						<a href="#">武汉</a>
+						<a href="#">苏州</a>
+					</div>
+			    </div>
+			    <div id="allcity">
+			    	<span>选择城市：</span>
+					<!--<div class="city">
+						<span><em><label for="">成都</label><i class="iconfont icon-sanjiaoxing-copy"></i></em></span>
+						<a href="#">北京</a>
+						<a href="#">天津</a>
+						<a href="#">上海</a>
+						<a href="#">宁夏</a>
+						<a href="#">江西</a>
+						<a href="#">辽宁 </a>
+						<a href="#">安徽</a>
+						<a href="#">重庆</a>
+						<a href="#">广州</a>
+						<a href="#">福建</a>
+						<a href="#">河南 </a>
+						<a href="#">河北</a>
+						<a href="#">海南</a>
+						<a href="#">四川</a>
+						<a href="#">山东</a>
+						<a href="#"> 陕西</a>
+						<a href="#">内蒙古</a>
+						<a href="#">山西</a>
+						<a href="#">浙江</a>
+						<a href="#">广西</a>
+						<a href="#">广东</a>
+						<a href="#">甘肃</a>
+						<a href="#">青海</a>
+						<a href="#">江苏</a>
+						<a href="#">吉林</a>
+						<a href="#">湖南</a>
+						<a href="#">湖北</a>
+						<a href="#">黑龙江</a>
+						<a href="#">深圳</a>
+						<a href="#">杭州</a>
+						<a href="#">南京</a>
+						<a href="#">成都</a>
+						<a href="#">武汉</a>
+						<a href="#">贵州</a>
+						<a href="#">西藏 </a>
+						<a href="#">新疆</a>
+						<a href="#">云南</a>
+						<a href="#">苏州</a>
+					</div>-->
+			        <div id="citybox">
+			        	    <select id="province"></select>
+							<select id="city"></select>
+							<select id="district"></select>
+			        </div>
+			    </div>
+			</div>
+		</div>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				function bindProvince(data) {
+				var provinces = data.showapi_res_body.data;
+				var html = "";
+				provinces.forEach(function(province){
+					html += "<option value='"+ province.id +"'>"+ province.areaName +"</option>";
+				});
+				$("#province").append(html);
+			}
+			// 查询省份
+			$.getJSON("http://route.showapi.com/1149-1?showapi_appid=29550&showapi_sign=e48f5d7e50334ffca41693016df78054&level=1", function(data){
+				bindProvince(data);
+				$.getJSON("http://route.showapi.com/1149-1?showapi_appid=29550&showapi_sign=e48f5d7e50334ffca41693016df78054&level=1&page=2", function(data){
+					bindProvince(data);
+                   bindCity();
+				});
+			});
+
+			// 根据省份的选择，查询城市信息
+			function bindCity() {
+				var _id = $("#province").val();
+			$.getJSON("http://route.showapi.com/1149-2?showapi_appid=29550&showapi_sign=e48f5d7e50334ffca41693016df78054&parentId="+_id, function(data){
+					var cities = data.showapi_res_body.data;
+					var html = "";
+					cities.forEach(function(city){
+						html += "<option value='"+ city.id +"'>"+ city.areaName +"</option>";
+					});
+					$("#city").empty().append(html);
+
+					bindDistrict();
+				});
+			}
+             
+			 function bindDistrict() {
+				var _id = $("#city").val();
+				$.getJSON("http://route.showapi.com/1149-2?showapi_appid=29550&showapi_sign=e48f5d7e50334ffca41693016df78054&parentId="+_id, function(data){
+					var districts = data.showapi_res_body.data;
+					var html = "";
+					districts.forEach(function(district){
+						html += "<option value='"+ district.id +"'>"+ district.areaName +"</option>";
+					});
+					$("#district").empty().append(html);
+				});
+			}
+
+			// 当省份选择改变时，更新城市下拉列表内容
+			$("#province").change(function(){
+				bindCity();
+			});
+			 var _prov="",_city="",_dist="";
+			// 当城市选择改变时，更新区县下拉列表内容
+			$("#city").change(bindDistrict);
+			//当县级城市选择改变时：
+			$("#district").change(function(){
+			  $(".top-adress .adress").text(_prov+_city);
+				$("#send #address").text(_prov+ _city+ _dist);
+				$("#cover").hide();
+				$("#adress").hide();
+			});
+			//
+		    $("#province").click(function(){
+		    	_prov = $(this).find("option:selected").text();
+		    	console.log(_prov)
+		     })
+		    $("#city").click(function(){
+		    	_city = $(this).find("option:selected").text();
+		    	console.log(_city)
+		    })
+		    $("#district").click(function(){
+		    	_dist = $(this).find("option:selected").text();
+		    	console.log(_dist)
+		    })
+			 
+		    $(".top-adress a").click(function(){
+					$("#cover").show();
+					$("#adress").show();
+				});
+			$("#ad-title").find("i").click(function(){
+		       	    $("#cover").hide();
+					$("#adress").hide();
+		       });	
+		        $("#adress a").click(function(){
+		        	$("#topbox .adress").html($(this).html());
+		        	$("#allcity").find("label").html($(this).html());
+		        	$(this).css({background:"#ff6600",color:"#ffffff"}).siblings().css({background:"#ffffff",color:"#222222"});
+		        	$("#adress").hide();
+		        	$("#cover").hide();
+		        });
+		      
+			});
+		</script>
+		<div id="coverbox">
+				<div id="login-title">
+					<ul>
+						<li class="login"><a href="#">登录</a></li>
+						<li class="regist"><a href="#">注册</a></li>
+					</ul>
+					<div id="cha"><a href="#"><i style="color: #000000;" class="iconfont icon-tuichu"></i></a></div>
+				</div>
+				<div id="formbox">
+					<form action="" method="post" id="login">
+						<div class="login-message">
+							<span>登录账号：</span>
+							<input type="text" class="username" required="required" placeholder="用户名/邮箱地址/手机号"/>
+							<label for=""></label>
+						</div>
+                         <div class="login-message">
+							<span>密码：</span><input type="password" required="required" class="password" placeholder="填写密码"/>
+							<lable></lable>
+                         </div>
+                        <!-- <div class="login-message">
+							<span>验证码：</span>
+							<input type="text" class="mess-jie" required="required" placeholder="填写验证码"/>
+							<label class="mess-shou"></label>
+							<a href="#">看不清楚？点击更换</a>
+                         </div>-->
+						<div class="check-message">
+							<span class="f"></span>
+							<div class="check-box">
+								<input type="checkbox" class="checked" value=""/>记住账号
+							</div>
+							<div class="check-box">
+								<input type="checkbox" class="checked" value=""/>俩周之类自动登录
+							</div>
+						</div>
+						<div class="buttonbox">
+							<span class="f"></span>
+							<input type="submit" class="button" value="登   录"/> <a href="#">忘记密码？</a>
+						</div>
+					</form>
+					<form action="/guolehui/php/regist.php" method="post" id="regist">
+				    	<div class="login-message">
+							<span><p>注册账号：</p><p>*</p></span>
+							<input type="text" class="username" required="required" placeholder="填写邮箱/手机号"/>
+							<label for="" class="registreturn"></label>
+						</div>
+                         <div class="login-message">
+							<span><p>密码：</p><p>*</p></span>
+							<input type="password" class="password" required="required" placeholder="填写大于6位数英文和数字"/>
+							<div id="qd-pass">
+								<div>
+									<i>密码强度：</i> <em></em>
+								</div>
+								
+								<div id="pass-tiao">
+									<div class="bg"></div>
+								</div>
+							</div>
+                         </div>
+                          <div class="login-message">
+							<span><p>确认密码：</p><p>*</p>
+							</span><input type="password" id="againpsw" required="required" placeholder="再次填写密码"/>
+							<label for="" id="returnpsw"></label>
+                         </div>
+                         <div class="login-message">
+							<span><p>验证码：</p><p>*</p></span>
+							<input type="text" class="mess-jie" required="required" placeholder="填写验证码"/>
+							<label class="mess-shou"></label>
+							<a href="#" class="change">看不清楚？点击更换</a>
+                         </div>
+						<div class="check-message">
+							<span class="f"></span>
+							<div class="check-box">
+								<input type="checkbox" class="checked" required="required" value=""/>
+								 我已阅读并同意 <a href="#">会员注册协议</a>&nbsp;和&nbsp;<a href="#">隐私保护政策</a>
+							</div>
+							
+						</div>
+						<div class="buttonbox">
+							<span class="f"></span>
+							<input type="submit" class="button" value="注  册"/>
+						</div>
+				    </form>
+				   <script type="text/javascript">
+				   	  $(function(){  //注册、登录
+				   	  		var usernameErr=true,
+				   	  	        passwordErr = true,
+				   	  	        verifytext = "";
+				   	  	      $.cookie.json = true;
+				   	  	
+				   	  	 var _logines = $.cookie("logines") || [];
+				   	  	 //$("#regist:input").css({required:"required"})  
+				   	  	 $("#regist .username").blur(function(){  //用户名验证
+				   	  var $username = $("#regist .username").val();
+				   	       $.ajax("/guolehui/data/login.json").then(function(data){
+				   	      	    var index = indexof($username,data,"username");
+				   	      	    if(index!==-1){
+				   	      	    	$("#regist .registreturn").html("用户名已被占用") ;
+									  passwordErr = true;
+				   	      	    }else{
+				   	      	    	$("#regist .registreturn").html("用户名可用") ;
+									   passwordErr = false;
+				   	      	    }
+				   	      })
+				   	      
+				   	      /*for(var i=0;i<_logines.length;i++){ //cookie模拟服务器
+				   	       	     var login = _logines[i];
+				   	       	   if($username == login.username){
+				   	       	   	   $("#regist .registreturn").html("用户名已被占用") ;
+									  passwordErr = true;
+									  break;
+				   	       	   }else{
+				   	       	   	  $("#regist .registreturn").html("用户名可用") ;
+									   passwordErr = false;
+									   break;
+				   	       	   }
+				   	         }*/
+				   	       /*$.ajax({ json模拟服务器
+									type: "POST",
+									url: "/guolehui/php/login.php",
+									data: {username: $username},
+									dataType: "json",
+									success: function(data){
+										if (data.statu == 1) {
+											$(".registreturn").html("用户名已被占用") ;
+											passwordErr = true;
+										} else{
+											$("#regist .registreturn").html("用户名可用") ;
+											passwordErr = false;
+										}
+									}
+									})*/
+				   	  	 });
+				   	  	 
+				   	  	 $("#regist .password").blur(function(){//密码验证
+				   	  	 	var password = $("#regist .password").val();
+				   	  	 	var reg0 = /^[a-z0-9A-Z]{6,}$/,
+				   	  	 	    reg1 = /^[a-z0-9A-Z]{8,}[^a-z0-9A-Z]+$/;
+				   	  	 	if(reg0.test(password)){
+				   	  	 		$("#qd-pass").find("em").html("弱").css({color:"red"});
+				   	  	 		     passwordErr = false;
+				   	  	 	}else if(reg1.test(password)){
+				   	  	 		$("#qd-pass").find("em").html("强").css({color:"green"});
+				   	  	 		     passwordErr = false;
+				   	  	 	}else if(password.length == 0){
+				   	  	 		$("#qd-pass").find("em").html("请输入密码").css({color:"black"});
+				   	  	 		     passwordErr = true;
+				   	  	 	}else{
+				   	  	 		$("#qd-pass").find("em").html("密码不对").css({color:"black"});
+				   	  	 		     passwordErr = true;
+				   	  	 	}
+				   	  	 	
+				   	  	 });
+				   	  	  $("#againpsw").blur(function(){//密码对比
+				   	  	  	var password = $("#regist .password").val(),
+				   	  	  	    againpsw = $("#againpsw").val();
+				   	  	  	    console.log(againpsw)
+				   	  	  	    if(password == againpsw){
+				   	  	  	    	$("#returnpsw").html("俩次输入密码相同")
+				   	  	  	    	 passwordErr = false;
+				   	  	  	    }else if(againpsw.length==0){
+				   	  	  	    	passwordErr = true;
+				   	  	  	    	$("#returnpsw").html()
+				   	  	  	    }else{
+				   	  	  	    	$("#returnpsw").html("俩次输入密码不同")
+				   	  	  	    	 passwordErr = true;
+				   	  	  	    }
+				   	  	  });
+				   	  	   function getVerify(){
+				   	  			$.getJSON("http://route.showapi.com/26-4?showapi_appid=38815&image_width=100&showapi_sign=df09bd38028a495abd2c780720dcd0a0",function(data){
+				   	  			 var _img = data.showapi_res_body.img_path;
+				   	  			    verifytext = data.showapi_res_body.text;
+				   	  			html = "<img src="+_img+">";
+				   	  			
+				   	  			console.log(verifytext);
+				   	  			$(".mess-shou").empty().append(html) 
+				   	  		});
+				   	  		}
+				   	  	  $(".mess-jie").focus(getVerify)
+				   	  	  $(".change").click(getVerify)
+				   	  	  $("#regist .mess-jie").blur(function(){  //验证码校验
+				   	  		
+				   	  		var jie = $("#regist .mess-jie").val();
+				   	  		 if( jie == verifytext){
+				   	  		 	$("#regist .mess-jie").css({border:"1px solid green"})
+				   	  		 	  passwordErr==false;
+				   	  		 }else{
+				   	  		 	$("#regist .mess-jie").css({border:"1px solid red"})
+				   	  		 	passwordErr==true;
+				   	  		 }
+				   	  	})
+				   	  	   
+				   	   $("#regist .button").click(function(e){
+				   	   	      e.preventDefault();
+				   	  	  	 if(!passwordErr){ //满足所有条件是注册
+				   	  	  	 	 var login = {
+				   	  	  	 	 	 username:$("regist .username").val(),
+				   	  	  	 	 	 psw:$("regist .password").val()
+				   	  	  	 	      }
+				   	  	  	 	 
+				   	  	  	 	  _logines.push(login);
+				   	  	  	 	  
+				   	  	  	 	  $.cookie("logines",_logines,{expires:7});
+				   	  	  	 	  
+				   	  	  	 	  console.log($.cookie("logines"));
+				       	       alert("you are regist success")
+				            }else{
+				            	alert("请按提示填写资料")
+				            }
+				   	  	 });
+				   //用户登录
+				     $("#login .login-message").find("input").blur(function(){
+				     	   var _this = $(this),
+				     	        str = _this.val();
+				     	   
+				     	  $.ajax("/guolehui/data/login.json").then(function(data){
+				     	 	   var classname = $(_this).attr("class"),
+				     	 	        index,str1="";
+				     	 	   if(classname == "username"){
+				     	 	   	  index = indexof(str,data,"username");
+				     	 	   	   if(index != -1){
+				     	 	   	   	  str1 = "用户名可用";
+				     	 	   	   	  usernameErr = false;
+				     	 	   	   }else{
+				     	 	   	   	  str1 = "不存在该用户名";
+				     	 	   	   	  usernameErr = true;
+				     	 	   	   }
+				     	 	   	}else if(classname == "password"){
+				     	 	   	  index = indexof(str,data,"psw");
+				     	 	   	  if(index != -1){
+				     	 	   	   	  str1 = "密码正确";
+				     	 	   	   	  usernameErr = false;
+				     	 	   	   }else{
+				     	 	   	   	  str1 = "密码错误";
+				     	 	   	   	  usernameErr = true;
+				     	 	   	   }
+				     	 	   	  }
+				     	 	   $(_this).next().empty().append(str1);
+				     	 	});
+				     });
+				   	/*$("#login .button").click(function(e){
+				   		e.preventDefault();
+				   		var _username = $("#login .username").val(),
+				   		    _psw = $("#login .password").val();
+				   		_logines =  $.cookie("logines");
+				   		 var index = indexof(_username,_logines,"username");
+				   		 console.log(_logines)
+				   		 console.log(index)
+				   		  if(index !== -1 ){
+				   		  	  if(_logines[index].psw == _psw){
+				   		  	  	 alert("登录成功")
+				   		  	  	 var html = "用户："+ _username,
+				   		  	  	     str = "<a href='#' class='cleancookie'>退出</a>";
+				   		  	  	  $("ul .login-button").html(html)
+				   		  	  	                   .next().html(str);
+				   		  	}else{
+				   		  	  	alert("密码错误")
+				   		  	  }
+				   		  }else{
+				   		  	alert("该用户不存在")
+				   		  var html = "<label>该用户不存在</label>"
+				   		  	$("#login .login-message").eq(0).append(html);
+				   		}
+				   		    
+				   	});*/
+				   	/* $(".check-box").find("input").click(function(){
+				   	 	 console.log($(this).prop("checked"))
+				   	 })*/
+				   	$("#login .button").click(function(e){
+				   	 	   e.preventDefault();
+                        if(!usernameErr){
+				   	 	  	var stuta0 = $("#login .checked").eq(0).prop("checked"),
+				   	 	  	    stuta1 = $("#login .checked").eq(1).prop("checked");
+				   	 	  	   var username = $("#login .username").val(),
+				   	 	  		    psw = $("#login .password").val();
+				   	 	  		var login = {
+				   	 	  			username:username,
+				   	 	  			psw:psw,
+				   	 	  			stu0:stuta0,
+				   	 	  			stu1:stuta1
+				   	 	  		        }
+				   	 	  	$.cookie("login",login,{expires:30});
+				   	 	  	   var html = "用户："+ username,
+				   		  	  	     str = "<a href='#' class='cleancookie'>退出</a>";
+				   		  	  	  $("ul .login-button").html(html)
+				   		  	  	                   .next().html(str); 
+				   		  	  	                   
+				   		  	  	    $("#login .username").val(""); //清空用户名  和密码            
+				   		  	  	    $("#login .password").val("");               
+						   	 	  	$("#coverbox").hide();
+						   	 	  	$("#cover").hide();
+				   	 	  }else{
+				   	 	  	alert("用户名或密码不正确");
+				   	 	  }
+				   	 	 });
+				   	 //点击退出;
+				   	 $("#top-r").on("click",".cleancookie",function(){
+				   	 	  var html = "<a id='denglu'>登录</a>"
+		   		  	  	     str = "<a href='#' id='zhuce'>注册</a>";
+		   		  	  	  $("ul .login-button").html(html)
+		   		  	  	                   .next().html(str); 
+		   		  	  	 $.cookie("login",{expires:-1})                  
+				   	 });
+				  function indexof(ele,products,attr){
+				  	for(var i=0;i<products.length;i++){
+			  		 	 	if(ele === products[i][attr])
+			  		 	 	  return i;
+			  		 	 }
+			  		 	 return -1;
+					  }				   	  	
+				   	//界面登录显示  
+				   	var login = $.cookie("login");
+				   	 if($.cookie("login")&&login.username){
+				   	  	 var html = "用户："+ login.username,
+				   		  	  	     str = "<a href='#' class='cleancookie'>退出</a>";
+				   		  	  	  $("ul .login-button").html(html)
+				   		  	  	                   .next().html(str); 
+				   	  }else{
+				   	  	var html = "<a id='denglu'>登录</a>"
+		   		  	  	     str = "<a href='#' id='zhuce'>注册</a>";
+		   		  	  	  $("ul .login-button").html(html)
+		   		  	  	                   .next().html(str); 
+				   	  }
+				   	    $("#cha").click(function(){
+				   	  		$("#coverbox").hide();
+				   	  		$("#cover").hide();
+				   	  	})
+				   	  });
+				   </script>
+				</div>
+		</div>
+		 <div id="right">
+			<div id="rightbox">
+		    <ul>
+				<li>
+					<a href="#">
+						<i class="iconfont icon-gouwu"></i>
+						<p>购物车</p>
+						<span>0</span>
+					    <div class="message">
+					   	  
+					    </div>
+				    </a>
+				</li>
+				<li><a href="#"><i class="iconfont icon-iconfontunie65"></i><p>提货卷通道</p></a></li>
+				<li><a href="#"><i class="iconfont icon-iconfontunie65"></i><p>充值</p></a></li>
+				<li><a href="#"><i class="iconfont icon-liuyan"></i><p>留言</p></a></li>
+				<li><a href="#"><i class="iconfont icon-erweima"></i>
+					<div class="erwei"><img src="/guolehui/img/erweima.jpg"/></div>
+				</a></li>
+				<li><a href="#"><i class="iconfont icon-jiantou"></i></a></li>
+			</ul>
+			</div>
+		</div>
+		<header>
+			<div id="top">
+				<div id="topbox">
+					<a class="titel-text" href="header.html">
+						返回首页
+					</a>
+					<a href="#" class="titel-text">收藏本站</a>
+					<div class="top-adress">
+					  <span>送货至：</span><a href="#"> <div class="adress">成都</div> <i class="iconfont icon-daosanjiao"></i></a>
+					</div>
+					<div id="top-r">
+					<p id="toptitle">Hi, 欢迎来到果乐汇！</p>
+					<ul>
+						<li class="top-li login-button"><a href="#" id="denglu">登录</a></li>
+						<li class="top-li login-regist"><a href="#" id="zhuce">注册</a></li>
+						<li class="top-li"><a href="#">企业福利</a></li>
+						<li class="top-li"><a href="#">APP客户端</a></li>
+					</ul>
+					<a href="#" id="wechat">
+					  <span>关注微信 <i class="iconfont icon-jiantou"></i></span>
+					  <div class="menu">
+					  	<img src="/guolehui/img/erweima.jpg"/>
+					  </div>
+					</a>
+					<a href="#" id="member">
+					  <span>会员中心 <i class="iconfont icon-jiantou"></i></span>
+					  <div class="menu">
+					  	<ul>
+					  		<li>我的订单</li>
+					  		<li>我的收藏</li>
+					  		<li>我的积分</li>
+					  	</ul>
+					  </div>
+					</a>
+					<div id="tell"><i class="iconfont icon-dianhua"></i>400-699-195</div>
+				</div>
+				</div>
+			</div>	
+			<script type="text/javascript">
+				$(function(){
+					$("#wechat,#member").hover(function(){
+						$(this).find(".iconfont").removeClass("icon-jiantou").addClass("icon-chevron-copy-copy-copy")
+					},function(){
+						$(this).find(".iconfont").addClass("icon-jiantou").removeClass("icon-chevron-copy-copy-copy")
+					 });
+					$(".top-adress a").click(function(){
+						
+					  })
+					});
+			
+			</script>
+			<div id="searchbox">
+			    	<h1><img src="/guolehui/img/logo0.jpg"></h1>
+			    	<div id="centerbox">
+			    		<form action="" method="get" id="search">
+				    		<input type="text" name="" id="ssbox" placeholder="始终坚持优质水果-果乐汇" />
+				    		<button id="ss">搜索</button>
+			    	    </form>
+			    		<div id="search-text">
+			    			<p>美国</p>
+			    			<p>中国产</p>
+			    			<p>我都是福利</p>
+			    		</div>
+			    	</div>
+			    	<div id="gouwuche">
+			    		<i class="iconfont icon-ordinaryorder"></i>
+			    		<a href="/guolehui/html/cart.html" class="mycar">我的购物车</a>
+			    		<span class="count">0</span>
+			    		 <em>></em>
+			    	  <div id="message"></div> 
+			    	</div>
+			    </div>
+		    <div id="top-nav">
+		    	<div id="nav0">
+		    		<div id="qbshangping">
+		    			<a href="#">全部商品分类</a>
+		    		</div>
+		    		<div id="nav-list">
+		    			<ul>
+    					
+		    			<script type="text/html" id="list-template">
+		    				<%for(var i=0;i<fruits.length;i++){
+		    					var prod = fruits[i];
+		    					%>
+		    				<li>
+		    					<div class="list-root">
+		    						<div class="li-top">
+		    							<a href="#" class="yiji"><%= prod.fruittitle %> >></a>
+		    						</div>
+		    						<div class="li-bottom">
+		    							<%for(var j=0;j<prod.adress.length;j++){
+		    								var ad = prod.adress[j]
+		    							%>
+		    							<a href="#"><%=ad.madress %></a>
+		    							<% } %>
+		    						</div>
+		    						<i class="iconfont icon-triangle"></i>
+		    					</div>
+		    					<div class="list-children">
+		    						<div class="li-top">
+		    							<a href="#" class="yiji"><%= prod.fruittitle %> >></a>
+		    						</div>
+		    						<div class="li-bottom">
+		    							<%for(var j=0;j<prod.adress.length;j++){
+		    								var ad = prod.adress[j]
+		    							%>
+		    							<a href="#"><%=ad.madress %></a>
+		    							<% } %>
+		    						</div>
+		    					</div>
+		    				</li>
+		    				<% } %>
+		    				 </script>
+		    			</ul>
+		    		</div>
+		    	</div>
+		        <div id="nav1">
+		        	<ul>
+		        		<li><a href="#">首页</a></li>
+		        		<li><a href="#">会员中心</a></li>
+		        		<li><a href="#">品牌发展</a></li>
+		        		<li><a href="#">企业采购</a></li>
+		        		<li><a href="#">礼品卡</a></li>
+		        	</ul>
+		        </div>
+		    </div>
+		</header>
+		<script type="text/javascript">
+			$(function(){
+				$.getJSON("/guolehui/data/adress.json",function(datas){
+					var data = {
+					 fruits:datas
+					}
+					var li = template("list-template",data); 
+					$("#nav-list ul").append(li);
+			  })
+				
+				
+				$(document).on("click","#denglu,#zhuce,.button",function(e){
+					e.preventDefault();
+					//location.reload(true);
+				})
+				//点击导航上登录时，出现登录界面
+				$(".login-button").on("click","#denglu",function(){
+					$("#cover").show();
+					$("#login").show();
+					$("#regist").hide();
+					$("#coverbox").show();
+					$(".login a").css({"background":"#666666","color":"#ffffff"})
+					$(".regist a").css({"background":"#eeeeee","color":"#666666"})
+				});
+				//点击导航上注册时，出现注册界面
+				$(".login-regist").on("click","#zhuce",function(){
+					$("#cover").show();
+					$("#coverbox").show();
+					$("#regist").show();
+					$("#login").hide();
+					$(".regist a").css({"background":"#666666","color":"#ffffff"})
+					$(".login a").css({"background":"#eeeeee","color":"#666666"})
+				});
+				$("#login-title .login").click(function(){
+					$("#login").show();
+					$("#regist").hide();
+					$(".regist a").css({"background":"#eeeeee","color":"#666666"})
+					$(".login a").css({"background":"#666666","color":"#ffffff"});
+				});
+				
+				$("#login-title .regist").click(function(){
+					$(".regist a").css({"background":"#666666","color":"#ffffff"})
+					$("#regist").show();
+					$(".login a").css({"background":"#eeeeee","color":"#666666"})
+					$("#login").hide();
+					
+				});
+				
+			})
+		</script>
+	</body>
+</html>

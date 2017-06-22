@@ -1,0 +1,205 @@
+main {
+  width: 100%;
+  overflow: hidden; }
+  main #banner {
+    width: 100%;
+    height: 456px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px; }
+    main #banner ul {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 1200px; }
+      main #banner ul li {
+        width: 100%;
+        height: 456px; }
+        main #banner ul li img {
+          width: 100%;
+          height: 100%; }
+    main #banner .next, main #banner .prev {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      right: 50px;
+      background: #000000;
+      color: #FFFFFF;
+      text-align: center;
+      line-height: 50px; }
+    main #banner .next {
+      top: 100px; }
+    main #banner .prev {
+      top: 160px; }
+    main #banner .page {
+      height: 30px;
+      position: absolute;
+      bottom: 0px;
+      text-align: center;
+      left: 0;
+      right: 0;
+      margin: 0 auto; }
+      main #banner .page .span {
+        display: inline-block;
+        text-align: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 10px;
+        background: #999999;
+        color: #FFFFFF;
+        line-height: 20px;
+        font-size: 12px; }
+      main #banner .page .bg {
+        background: red; }
+  main #fruit-navbox {
+    width: 100%;
+    background: #f5f5f5; }
+    main #fruit-navbox .fruit-nav {
+      width: 1200px;
+      margin: 10px auto 20px;
+      height: 560px; }
+      main #fruit-navbox .fruit-nav .fruit-l {
+        float: left;
+        width: 220px;
+        height: 560px; }
+        main #fruit-navbox .fruit-nav .fruit-l .fruit-title {
+          width: 220px;
+          height: 50px;
+          text-align: center;
+          line-height: 50px;
+          background: #339933; }
+          main #fruit-navbox .fruit-nav .fruit-l .fruit-title a {
+            color: #FFFFFF;
+            font-size: 18px; }
+        main #fruit-navbox .fruit-nav .fruit-l .fruit-recom {
+          width: 220px;
+          height: 510px; }
+          main #fruit-navbox .fruit-nav .fruit-l .fruit-recom a {
+            display: block;
+            width: 220px;
+            height: 510px; }
+            main #fruit-navbox .fruit-nav .fruit-l .fruit-recom a img {
+              width: 100%;
+              height: 100%; }
+      main #fruit-navbox .fruit-nav .fruit-r {
+        float: right;
+        width: 960px;
+        height: 560px; }
+        main #fruit-navbox .fruit-nav .fruit-r ul {
+          width: 970px;
+          height: 560px;
+          overflow: hidden; }
+          main #fruit-navbox .fruit-nav .fruit-r ul .bannerbox {
+            width: 637px;
+            height: 370px;
+            float: left;
+            margin: 0 10px 10px 0;
+            position: relative; }
+            main #fruit-navbox .fruit-nav .fruit-r ul .bannerbox img {
+              display: none; }
+              main #fruit-navbox .fruit-nav .fruit-r ul .bannerbox img:nth-child(1) {
+                display: block; }
+            main #fruit-navbox .fruit-nav .fruit-r ul .bannerbox .page {
+              height: 30px;
+              position: absolute;
+              bottom: 10px;
+              text-align: center;
+              left: 0;
+              right: 0;
+              margin: 0 auto; }
+              main #fruit-navbox .fruit-nav .fruit-r ul .bannerbox .page .span {
+                display: inline-block;
+                text-align: center;
+                width: 40px;
+                height: 10px;
+                margin-right: 5px;
+                background: #FFFFFF; }
+              main #fruit-navbox .fruit-nav .fruit-r ul .bannerbox .page .bg {
+                background: #7abd54; }
+            main #fruit-navbox .fruit-nav .fruit-r ul .bannerbox .next, main #fruit-navbox .fruit-nav .fruit-r ul .bannerbox .prev {
+              width: 30px;
+              height: 60px;
+              background: #FFFFFF;
+              display: none;
+              position: absolute;
+              top: 188px;
+              text-align: center;
+              line-height: 60px; }
+            main #fruit-navbox .fruit-nav .fruit-r ul .bannerbox .next {
+              right: 0; }
+            main #fruit-navbox .fruit-nav .fruit-r ul .bannerbox .prev {
+              left: 0; }
+            main #fruit-navbox .fruit-nav .fruit-r ul .bannerbox:hover .next, main #fruit-navbox .fruit-nav .fruit-r ul .bannerbox:hover .prev {
+              display: block; }
+          main #fruit-navbox .fruit-nav .fruit-r ul li {
+            width: 293px;
+            height: 160px;
+            background: #FFFFFF;
+            float: left;
+            position: relative;
+            margin: 0 10px 10px 0;
+            padding: 10px 10px; }
+            main #fruit-navbox .fruit-nav .fruit-r ul li .fruit-info {
+              width: 100px;
+              height: 180px; }
+              main #fruit-navbox .fruit-nav .fruit-r ul li .fruit-info a {
+                font-size: 12px;
+                color: #333333;
+                display: block;
+                margin-bottom: 10px;
+                width: 90px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: clip; }
+                main #fruit-navbox .fruit-nav .fruit-r ul li .fruit-info a:hover {
+                  color: red; }
+              main #fruit-navbox .fruit-nav .fruit-r ul li .fruit-info .price {
+                font-size: 17px;
+                color: #99cc00; }
+                main #fruit-navbox .fruit-nav .fruit-r ul li .fruit-info .price p {
+                  display: inline-block;
+                  float: left; }
+            main #fruit-navbox .fruit-nav .fruit-r ul li .img a {
+              position: absolute;
+              right: 10px;
+              top: 5px;
+              width: 160px;
+              height: 150px;
+              display: block; }
+              main #fruit-navbox .fruit-nav .fruit-r ul li .img a img {
+                width: 100%;
+                height: 100%; }
+  main #hotbox {
+    width: 100%;
+    height: 535px;
+    position: relative;
+    background: #F5F5F5;
+    margin-bottom: 20px; }
+    main #hotbox #hotmessage {
+      height: 55px;
+      line-height: 55px;
+      text-align: left;
+      font-size: 25px;
+      width: 1200px;
+      margin: 0 auto; }
+      main #hotbox #hotmessage a {
+        font-size: 12px;
+        color: #333333;
+        position: absolute;
+        right: 20px;
+        top: 0; }
+        main #hotbox #hotmessage a:hover {
+          color: red; }
+    main #hotbox #hot {
+      width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-content: space-around; }
+      main #hotbox #hot .hotfruit:hover {
+        box-shadow: 0px 0px 15px 1px #CCCCCC; }

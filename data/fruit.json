@@ -1,0 +1,26 @@
+[
+    {
+    "fruittitle" : "进口水果",
+     "recomsrc" : "fruit-l0.jpg",
+     "bannersrc" :["fruit-r-a.jpg","fruit-r-b.jpg","fruit-r-d.jpg"], 
+    "product":[
+                {"infomessage":"1新西兰新西兰", "infoprice":29.00,"imgsrc":"fruit-r0.jpg"},
+                {"infomessage":"2新西兰新西兰", "infoprice":39.00,"imgsrc":"fruit-r1.jpg"},
+                {"infomessage":"3新西兰新西兰", "infoprice":49.00,"imgsrc":"fruit-r2.jpg"},
+                {"infomessage":"4新西兰新西兰", "infoprice":59.00,"imgsrc":"fruit-r3.jpg"},
+                {"infomessage":"5新西兰新西兰", "infoprice":69.00,"imgsrc":"fruit-r4.jpg"}
+               ]
+     },
+     {
+    "fruittitle" : "国产水果",
+     "recomsrc" : "fruit-l1.jpg",
+     "bannersrc" :["fruit-r-c.jpg","fruit-r-b.jpg","fruit-r-a.jpg","fruit-r-d.jpg"], 
+     "product":[
+                {"infomessage":"1新西兰新西兰", "infoprice":29.00,"imgsrc":"fruit-r0.jpg"},
+                {"infomessage":"2新西兰新西兰", "infoprice":39.00,"imgsrc":"fruit-r1.jpg"},
+                {"infomessage":"3新西兰新西兰", "infoprice":49.00,"imgsrc":"fruit-r2.jpg"},
+                {"infomessage":"4新西兰新西兰", "infoprice":59.00,"imgsrc":"fruit-r3.jpg"},
+                {"infomessage":"5新西兰新西兰", "infoprice":69.00,"imgsrc":"fruit-r4.jpg"}
+               ]
+     }
+]     

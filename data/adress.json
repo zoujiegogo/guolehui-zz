@@ -1,0 +1,33 @@
+[
+  {"fruittitle":"进口果鲜",
+    "typeid":1,
+    "adress":[
+    {"madress":"南非水果"},
+    {"madress":"泰国水果"},
+    {"madress":"越南水果"},
+    {"madress":"法国水果"},
+    {"madress":"墨西哥水果"},
+    {"madress":"泰国水果"},
+    {"madress":"越南水果"},
+    {"madress":"法国水果"},
+    {"madress":"墨西哥水果"},
+    {"madress":"美国水果"}
+   ]},
+   {"fruittitle":"国产果鲜",
+    "typeid":2,
+   "adress":[
+    {"madress":"新品上市"},
+    {"madress":"时令水果"},
+    {"madress":"推荐热卖"},
+    {"madress":"国产热卖"}
+   ]},
+   {"fruittitle":"高档水果礼盒",
+    "typeid":3,
+   "adress":[
+    {"madress":"时令水果礼盒"}
+   ]},
+   {"fruittitle":"企业商务系列礼盒","adress":[
+    {"madress":"商务套餐"},
+    {"madress":"家庭套餐"}
+   ]}
+]

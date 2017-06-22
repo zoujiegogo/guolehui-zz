@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		  <link rel="stylesheet" type="text/css" href="/guolehui/css/style.css"/>
+		  <link rel="stylesheet" type="text/css" href="/guolehui/css/detail.css"/>
+		  <link rel="stylesheet" type="text/css" href="/guolehui/icon-font/iconfont.css"/>
+          <script type="text/javascript" src="/guolehui/js/jquery-1.12.4.min.js"></script>
+		  <script type="text/javascript" src="/guolehui/js/jquery.cookie.js"></script>
+		  <script type="text/javascript" src="/guolehui/js/template-native.js"></script>
+		  <script type="text/javascript" src="/guolehui/js/require.js"></script>
+ </head>
+	<body>
+		<header></header>
+		<div class="clean">
+		</div>
+		<div id="productdetailbox">
+			<div id="productdetail">
+				<div id="aside">
+					<script type="text/html" id="lefttop-template">
+						<%for(var i=0;i<adresses.length;i++){
+							 var prod = adresses[i];
+						%>
+						<dl id="lefttop">
+						<dt><a href=""><%=prod.fruittitle %>>></a></dt>
+						<%for(var j=0;j<prod.adress.length;j++){
+							 var adress = prod.adress[j]
+							 %>
+						<dd><a href="#"><%=adress.madress %></a></dd>
+						  <%}%>
+					</dl>
+						<%}%>
+					</script>
+				<dl id="leftbottom">
+						<dt>
+							<a href="#">热销排行榜</a>
+						</dt>
+						<dd>
+							<div class="imgbox">
+								<a href="#">
+									<img src="/guolehui/img/fruit-r0.jpg" alt="" />
+								</a>
+								
+							</div>
+							<div class="info">
+								<a href="#">新西兰佳沛绿奇异果；新品上市</a>
+								<p class="price">￥128.00</p>
+							</div>
+						</dd>
+						<dd>
+							<div class="imgbox">
+								<a href="#">
+									<img src="/guolehui/img/fruit-r0.jpg" alt="" />
+								</a>
+								
+							</div>
+							<div class="info">
+								<a href="#">新西兰佳沛绿奇异果；新品上市</a>
+								<p class="price">￥128.00</p>
+							</div>
+						</dd>
+						<dd>
+							<div class="imgbox">
+								<a href="#">
+									<img src="/guolehui/img/fruit-r0.jpg" alt="" />
+								</a>
+								
+							</div>
+							<div class="info">
+								<a href="#">新西兰佳沛绿奇异果；新品上市</a>
+								<p class="price">￥128.00</p>
+							</div>
+						</dd>
+						
+					</dl>
+		</div>
+				
+				<div id="detail">
+					<script type="text/html" id="detail-template">
+						<%for(var i=0;i<fruit.length;i++){
+							var prod = fruit[i];
+						%>
+						<h3><%=prod.message%></h3>
+					<div id="detailinfo">
+						<div id="mirimgbox">
+						   <div id="bigimg">
+								<div id="bigbox">
+									<%for(var m=0;m<prod.showbigimg.length;m++){
+									    var show = prod.showbigimg[m]
+										%>
+										<img src="/guolehui/img/<%=show.show0 %>"/>
+									 <%}%>
+								</div>
+								<div id="mirrorbox">
+									<%for(var n=0;n<prod.showbigimg.length;n++){
+                                       var showbig = prod.showbigimg[n];
+										%>
+									<img src="/guolehui/img/<%=showbig.show0 %>"/>
+									  <%}%>
+								</div>
+								<div id="mirror"></div>
+						   </div>
+						   <div id="img-nav">
+						   	  <div id="left-button"><i class="iconfont icon-sanjiaoxing2-copy"></i></div>
+						   	  <div id="imgnavbox">
+						   	  	<%for(var k=0;k<prod.showsmallimg.length;k++){
+						   	  		var showsmall = prod.showsmallimg[k];
+						   	  		%>
+								    <div class="imgbox">
+									   <img src="/guolehui/img/<%=showsmall.show0 %>"/>
+									</div>
+									<%}%>
+						   	  	</div>
+						   	  <div id="right-button"><i class="iconfont icon-triangle"></i></div>
+						   </div>
+						   
+						</div>
+						
+						<div id="info">
+							<div id="detail-price">
+								<span id="saleprice">
+									<br />
+									销售价：&nbsp;&nbsp;<ins>￥<label for="" class="salemoney"><%=prod.saleprice%></label></ins>
+									<label for="">&nbsp;&nbsp;(节省￥<label for="" class="savemoney"><%=prod.saveprice%></label>)</label>
+								</span><br /><br />
+								<span id="marketprice">
+									市场价：&nbsp;&nbsp;<del>￥<label for="" class="marketmoney"><%=prod.marketprice%></label></del>
+								</span>
+							</div>
+							<div id="detail-action">
+								<div id="send">
+									送至：<label for="" id="address">&nbsp;四川  成都&nbsp;<i class="iconfont icon-daosanjiao"></i></label>
+								</div>
+								<div id="time">
+									<p>时效：今日19:00截单</p>
+									<p>理赔保障：签收当日有效</p>
+								</div>
+								<div>
+									原产地：<label for="" id="location"><%=prod.adress%></label>
+								</div>
+								<div id="countbox">
+									<div>数量：</div>
+									<div id="jian">-</div>
+									<div><input type="text" id="amount" value="1"/></div>
+									
+									<div id="jia">+</div>
+								</div>
+								<button id="btn">加入购物车</button>
+							</div>
+						</div>
+					    
+					</div>
+					<div id="introduct">
+					    	<div id="xiding">
+					    		<div id="xdleft">
+					    			商品详情
+					    		</div>
+					    		<div id="xdright">
+					    			<div id="jiage">￥<label for=""><%=prod.saleprice%></label></div>
+					    			<div id="go" name="<%=prod.typeid%>"><a href="#">立即购买</a></div>
+					    			<div id="tianjia" name="<%=prod.typeid%>"><a href="#" name="<%=prod.typeid%>">添加购物车</a></div>
+					    		</div>
+					    	</div>
+					    	<div id="fenlei">
+					    			<div>品牌：</div>
+					    			<div>所属分类:&nbsp;<label for=""><%=prod.secondclass%></label></div>
+					        </div>
+					        <div id="imgdescrible">
+					        	<%for(var j = 0 ;j<prod.productimg.length;j++){
+					        		var product = prod.productimg[j];
+					        		%>
+					        	<img src="/guolehui/img/<%=product.product%>"/>
+					        		<%}%>
+					        	</div>
+					    </div>
+						<%}%>
+					</script>
+				</div>
+				
+					<!--<h3>【特价】美国樱桃新品上市28mm</h3>
+					<div id="detailinfo">
+						<div id="mirimgbox">
+						   <div id="bigimg">
+								<div id="bigbox">
+									<img src="/guolehui/img/fruit-r0.jpg"/>
+									<img src="/guolehui/img/fruit-r1.jpg"/>
+									<img src="/guolehui/img/fruit-r2.jpg"/>
+									<img src="/guolehui/img/fruit-r3.jpg"/>
+								</div>
+								<div id="mirrorbox">
+									<img src="/guolehui/img/fruit-r0.jpg"/>
+									<img src="/guolehui/img/fruit-r1.jpg"/>
+									<img src="/guolehui/img/fruit-r2.jpg"/>
+									<img src="/guolehui/img/fruit-r3.jpg"/>
+								</div>
+								<div id="mirror"></div>
+						   </div>
+						   <div id="img-nav">
+						   	  <div id="left-button"><i class="iconfont icon-sanjiaoxing2-copy"></i></div>
+						   	  <div id="imgnavbox">
+						   	  	<div class="imgbox"><img src="/guolehui/img/fruit-r0.jpg"/></div>
+						   	  	<div class="imgbox"><img src="/guolehui/img/fruit-r1.jpg"/></div>
+						   	  	<div class="imgbox"><img src="/guolehui/img/fruit-r2.jpg"/></div>
+						   	  	<div class="imgbox"><img src="/guolehui/img/fruit-r3.jpg"/></div>
+						   	  </div>
+						   	  <div id="right-button"><i class="iconfont icon-triangle"></i></div>
+						   </div>
+						   
+						</div>
+						
+						<div id="info">
+							<div id="detail-price">
+								<span id="saleprice">
+									<br />
+									销售价：&nbsp;&nbsp;<ins>￥128</ins><label for="">&nbsp;&nbsp;(节省￥31)</label>
+								</span><br /><br />
+								<span id="marketprice">
+									市场价：&nbsp;&nbsp;<del>￥159</del>
+								</span>
+							</div>
+							<div id="detail-action">
+								<div id="send">
+									送至：<label for="" id="address">&nbsp;四川  成都&nbsp;<i class="iconfont icon-daosanjiao"></i></label>
+								</div>
+								<div id="time">
+									<p>时效：今日19:00截单</p>
+									<p>理赔保障：签收当日有效</p>
+								</div>
+								<div>
+									原产地：<label for="" id="location">美国</label>
+								</div>
+								<div id="countbox">
+									<div>数量：</div>
+									<div id="jian">-</div>
+									<div><input type="text" id="amount" value="1"/></div>
+									
+									<div id="jia">+</div>
+								</div>
+								<button id="btn">加入购物车</button>
+							</div>
+						</div>
+					    
+					</div>
+					<div id="introduct">
+					    	<div id="xiding">
+					    		<div id="xdleft">
+					    			商品详情
+					    		</div>
+					    		<div id="xdright">
+					    			<div id="jiage">￥168</div>
+					    			<div id="go"><a href="#">立即购买</a></div>
+					    			<div id="tianjia"><a href="#">添加购物车</a></div>
+					    		</div>
+					    	</div>
+					    	<div id="fenlei">
+					    			<div>品牌：</div>
+					    			<div>所属品牌:&nbsp;<label for="">美国商品</label></div>
+					        </div>
+					        <div id="imgdescrible">
+					        	<img src="/guolehui/img/describle0.jpg"/>
+					        	<img src="/guolehui/img/describle1.jpg"/>
+					        	<img src="/guolehui/img/describle2.jpg"/>
+					        	<img src="/guolehui/img/describle3.jpg"/>
+					        	<img src="/guolehui/img/describle4.jpg"/>
+					        	<img src="/guolehui/img/describle5.jpg"/>
+					        	<img src="/guolehui/img/describle6.jpg"/>
+					        </div>
+					    </div>-->
+				
+			</div>
+		</div>
+		
+		<footer></footer>
+		<script type="text/javascript">
+			$(function(){
+			    $.cookie.json=true;
+			    var id = $.cookie("fruitid");
+				$("footer").load("/guolehui/html/footer.html")
+				
+				$.ajax("/guolehui/html/header.html").then(function(data){
+                  $("header").append(data);
+                });
+	  		
+				$.getJSON("/guolehui/data/adress.json",function(data){//渲染模板lefttop
+						var arr = [];
+					$(data).each(function(index,element){
+					  if($(element.typeid)[0]==id.typeid){
+					  	arr.push(data[index]);
+					  }
+					});
+					var adress = {
+						          adresses : arr
+						         };
+					var html = template("lefttop-template",adress);
+						 $(html).insertBefore("#leftbottom") ; 
+						 
+						 
+				});
+				
+				
+				$.getJSON("/guolehui/data/detail.json",function(data){//渲染模板detail
+					var detail = [];
+					$(data).each(function(index,element){
+					  if($(element.id)[0]==id.id){
+					  	detail.push(data[index]);
+					 }
+					});
+					var detailes = {
+						          fruit : detail
+						         };
+					var html = template("detail-template",detailes);
+					   
+					   
+						  $(html).appendTo("#detail");
+					 qiehuan();
+				//添加购物车
+				 $("#detail").on("click","#btn,#tianjia,#go a",function(e){
+				 	  if(!$(this).is("#go")){
+				 	  	e.preventDefault();
+				 	  }
+				 	var _fruits = $.cookie("fruits");
+				 	   _fruits.forEach(function(fruit){
+				 	   	   if(detailes.fruit[0].id==fruit.id){
+				 	   	   	    detailes.fruit[0].count++;
+				 	   	   	   //console.log(detailes.fruit[0].count)
+				 	   	   	   console.log(detailes.fruit[0].id)
+				 	   	   	   console.log(fruit.id)
+				 	   	   }else{
+				 	   	   	_fruits.push(detailes.fruit[0])
+				 	   	   
+				 	   	   }	
+				 	   	   $.cookie("fruits",_fruits,{expires:7})
+				 	   });
+				 	 
+			 	   });	
+					
+				//吸顶效果；
+				$(document).scroll(function(){
+					var scrtop = $(this).scrollTop();
+					if(scrtop>630){
+						$("#xiding").css({position:"fixed",top:"0px",background:"#ffffff"})
+						$("#xdright").show();
+					}else{
+						$("#xiding").css({position:"relative",top:"0px",background:"#ffffff"})
+						$("#xdright").hide();
+					}
+				})
+				
+				});
+				
+				
+				
+	
+					var bigindex = 0;
+					//放大镜实现；
+			    $("#detail").on("mousemove","#bigimg",function(e){
+					var left = e.pageX ,
+					    top = e.pageY,
+					    bigHeight = $("#bigbox").innerHeight(),
+					    bigWidth = $("#bigbox").innerWidth(),
+					    mirHeight = $("#mirror").innerHeight(),
+					    mirWidth = $("#mirror").innerWidth(),
+					    ratex = bigWidth/mirWidth,
+                        ratey = bigHeight/mirHeight;
+					     mirH = 0.5 * mirHeight,
+					     mirW = 0.5 * mirWidth;
+						     
+			   $("#mirror").show().offset({left:left-mirW,top:top-mirH});
+			       var left = $("#mirror").position().left,
+			           top = $("#mirror").position().top;
+			             if(top<0)
+						     top=0;
+                         if(top>bigHeight - mirHeight)
+						    top = bigHeight - mirHeight;
+						 if(left<0)
+						     left=0;
+                          if(left>bigWidth - mirWidth)
+						    left = bigWidth - mirWidth;  
+				  $("#mirror").css({left:left+"px",top:top+"px"});
+				  
+				  $("#mirrorbox img").css(
+				  	{width:ratex*bigWidth+"px",height:ratey*bigHeight+"px",
+				  	  left:-1*ratex*left+"px",top:-1*ratey*top+"px"});
+				  	
+					 });
+					//小图对应大图切换
+				function qiehuan(){
+					$("#imgnavbox div img").each(function(index,element){
+						$(this).mouseenter(function(){
+							bigindex = index;
+							minbig();
+						})
+					});
+				}
+				
+				
+					 $("#detail").on("click","#left-button",function(){
+					 	bigindex--;
+					 	if(bigindex<0)
+					 	 bigindex=$("#imgnavbox img").length-1
+					 	minbig();
+					 });
+					  $("#detail").on("click","#right-button",function(){
+					 	bigindex++;
+					 	if(bigindex>$("#imgnavbox img").length-1)
+					 	 bigindex=0
+					 	 minbig();
+					 });
+					 
+					 function minbig(){
+				 		$("#bigbox img").eq(bigindex).show().siblings().hide();
+				 		$("#mirrorbox img").eq(bigindex).show().siblings().hide();
+				 		$("#imgnavbox .imgbox").eq(bigindex).css({border:"1px solid #ff6600"})
+				 		                       .siblings().css({border:"1px solid #dddddd"})
+					 	}
+				  //选购地址
+				  $("#detail").on("click","#send",function(){
+				  	 $("header #cover").show();
+				  	 $("#adress").show()
+				  })
+							
+			   })
+		</script>
+	</body>
+</html>
